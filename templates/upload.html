@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>File Upload Form</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+    .container {
+        max-width: 500px;
+        margin: auto;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    input[type="file"] {
+        margin-top: 5px;
+    }
+    button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Upload Your File.Today's Date {{date}}</h1>
+    <form action="/multiple_upload_Files" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="file">Choose File:</label>
+            <input type="file" id="file" name="files" multiple required>
+        </div>
+        <button type="submit">Upload</button>
+    </form>
+</div>
+</body>
+</html>
