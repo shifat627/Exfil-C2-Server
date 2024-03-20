@@ -21,10 +21,12 @@ TEMPLATE_DIR = os.path.join(os.path.dirname(__file__),'templates')
 if not os.path.exists(UPLOAD_DIR):
     os.mkdir(UPLOAD_DIR)
 
+if not os.path.exists(STATIC_DIR):
+    os.mkdir(STATIC_DIR)
 
 app = FastAPI()
 app.mount('/s',StaticFiles(directory=STATIC_DIR),'staticfiles')
-#app.mount('/files',StaticFiles(directory=UPLOAD_DIR),'myfiles')
+app.mount('/files',StaticFiles(directory=UPLOAD_DIR),'myfiles')
 Templates = Jinja2Templates(TEMPLATE_DIR)
 
 
@@ -43,6 +45,7 @@ async def RecieveFile(fp:UploadFile = File(alias='file')):
 
 @app.post('/giveRaw/{filename}')
 async def RecieveFileRaw(req:Request,filename : str = Path()):
+    filename = filename.replace('../','_').replace('..\\','_')
     with open(os.path.join(UPLOAD_DIR,filename),'wb') as origFile:
         origFile.write(await req.body())
     
